@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ElectroFix Portal - Repair & Parts</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --primary: #0f172a;
+      --secondary: #2563eb;
+      --accent: #f59e0b;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(1200px, 90%);
+      margin: 0 auto;
+    }
+
+    .topbar {
+      background: rgba(255, 255, 255, 0.9);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    .logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .menu {
+      display: flex;
+      gap: 24px;
+    }
+
+    .menu a {
+      color: var(--text);
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    .menu a:hover {
+      color: var(--secondary);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .primary {
+      background: var(--secondary);
+      color: white;
+    }
+
+    .secondary {
+      background: rgba(37, 99, 235, 0.08);
+      color: var(--secondary);
+    }
+
+    .small-btn {
+      background: var(--primary);
+      color: white;
+      padding: 10px 16px;
+      font-size: 0.95rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 30px;
+      align-items: center;
+      padding: 80px 0 40px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin: 14px 0;
+      line-height: 1.1;
+    }
+
+    .hero-content p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(37, 99, 235, 0.08);
+      color: var(--secondary);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.05rem;
+      text-transform: uppercase;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      margin-top: 22px;
+      flex-wrap: wrap;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .hero-stats div {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .hero-stats strong {
+      font-size: 1.6rem;
+    }
+
+    .hero-panel {
+      display: grid;
+      gap: 20px;
+    }
+
+    .mini-card {
+      background: var(--card);
+      padding: 28px;
+      border-radius: 22px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .mini-card.dark {
+      background: var(--primary);
+      color: white;
+    }
+
+    .mini-card h3 {
+      margin: 8px 0 0;
+      font-size: 1.25rem;
+    }
+
+    .feature-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 20px;
+      padding: 20px 0 40px;
+    }
+
+    .feature {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 18px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .feature span {
+      font-size: 2rem;
+    }
+
+    .feature h4 {
+      margin: 12px 0 0;
+    }
+
+    .catalog, .about, .repair-tracker {
+      padding: 60px 0;
+    }
+
+    .section-heading {
+      margin-bottom: 28px;
+    }
+
+    .section-heading p {
+      color: var(--secondary);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08rem;
+      font-size: 0.8rem;
+    }
+
+    .section-heading h2 {
+      margin-top: 8px;
+      font-size: clamp(1.9rem, 3vw, 2.8rem);
+    }
+
+    .filter-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .filter {
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--text);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter:hover {
+      background: var(--secondary);
+      color: white;
+      border-color: var(--secondary);
+    }
+
+    .filter.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .product-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .product-body {
+      padding: 18px;
+    }
+
+    .product-category {
+      display: inline-block;
+      background: rgba(37, 99, 235, 0.08);
+      color: var(--secondary);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+
+    .product-body h3 {
+      margin: 0 0 10px;
+      font-size: 1.3rem;
+    }
+
+    .product-body p {
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+
+    .product-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    .product-price {
+      color: var(--secondary);
+      font-size: 1.1rem;
+    }
+
+    .card-btn {
+      width: 100%;
+      background: var(--primary);
+      color: white;
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 28px;
+    }
+
+    .about-text ul {
+      padding-left: 20px;
+      margin: 22px 0 0;
+      list-style: disc;
+      line-height: 2;
+    }
+
+    .about-box {
+      background: linear-gradient(135deg, #0f172a 0%, #1d4ed8 100%);
+      color: white;
+      border-radius: 24px;
+      padding: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow);
+    }
+
+    .repair-form {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-group label {
+      font-weight: 700;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 1rem;
+      background: white;
+      font-family: inherit;
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .full-width {
+      grid-column: 1 / -1;
+    }
+
+    .footer {
+      background: #0b1220;
+      color: white;
+      padding: 30px 0;
+      margin-top: 40px;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .success-message {
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    @media (max-width: 900px) {
+      .hero, .about, .feature-strip, .product-grid, .repair-form {
+        grid-template-columns: 1fr;
+      }
+
+      .menu {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <div class="brand">
+        <span class="logo">E</span>
+        <span>ElectroFix</span>
+      </div>
+
+      <nav class="menu">
+        <a href="#catalog">Catalog</a>
+        <a href="#repair-tracker">Track Repair</a>
+        <a href="#about">About</a>
+      </nav>
+
+      <a href="#repair-tracker" class="btn small-btn">Book Repair</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-content">
+        <span class="badge">Trusted repair solutions</span>
+        <h1>Repair smart. Upgrade easier.</h1>
+        <p>
+          Find quality screens, phone protectors, laptop parts, and repair services for your devices.
+          Built for long-lasting reliability and future upgrades.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#catalog" class="btn primary">Browse Parts</a>
+          <a href="#repair-tracker" class="btn secondary">Track Repair</a>
+        </div>
+
+        <div class="hero-stats">
+          <div>
+            <strong>2.4k+</strong>
+            <span>Repairs</span>
+          </div>
+          <div>
+            <strong>150+</strong>
+            <span>Parts</span>
+          </div>
+          <div>
+            <strong>99%</strong>
+            <span>Satisfaction</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-panel">
+        <div class="mini-card">
+          <span class="badge" style="background: rgba(245,158,11,0.12); color: var(--accent);">Fast Service</span>
+          <h3>Same-day repair inspection for phones and laptops</h3>
+        </div>
+
+        <div class="mini-card dark">
+          <span class="badge" style="background: rgba(255,255,255,0.12); color: white;">Upgradable Parts</span>
+          <h3>Durable replacements designed for long-term use</h3>
+        </div>
+      </div>
+    </section>
+
+    <section class="feature-strip">
+      <div class="feature">
+        <span>⚡</span>
+        <h4>Fast availability</h4>
+      </div>
+      <div class="feature">
+        <span>🛠️</span>
+        <h4>Expert repair support</h4>
+      </div>
+      <div class="feature">
+        <span>📦</span>
+        <h4>Quality spare parts</h4>
+      </div>
+      <div class="feature">
+        <span>🔄</span>
+        <h4>Upgrade-friendly design</h4>
+      </div>
+    </section>
+
+    <section id="catalog" class="catalog">
+      <div class="section-heading">
+        <p>Popular products</p>
+        <h2>Find the right part for your device</h2>
+      </div>
+
+      <div class="filter-row">
+        <button class="filter active" onclick="filterProducts('all')">All</button>
+        <button class="filter" onclick="filterProducts('screen')">Screens</button>
+        <button class="filter" onclick="filterProducts('protection')">Protection</button>
+        <button class="filter" onclick="filterProducts('laptop')">Laptop</button>
+        <button class="filter" onclick="filterProducts('repair')">Repair Parts</button>
+      </div>
+
+      <div class="product-grid">
+        <article class="product-card" data-category="screen">
+          <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=900&q=80" alt="Phone screen" />
+          <div class="product-body">
+            <span class="product-category">Screen</span>
+            <h3>iPhone 13 Screen</h3>
+            <p>High-quality replacement display with clear image quality and durability.</p>
+            <div class="product-meta">
+              <span>iPhone 13</span>
+              <strong class="product-price">KES 8,999</strong>
+            </div>
+            <button class="btn card-btn" onclick="inquireProduct('iPhone 13 Screen', 8999)">Add to order</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="protection">
+          <img src="https://images.unsplash.com/photo-1580910051074-3eb694886505?auto=format&fit=crop&w=900&q=80" alt="Phone protector" />
+          <div class="product-body">
+            <span class="product-category">Protection</span>
+            <h3>Galaxy A54 Protector</h3>
+            <p>Scratch-resistant glass protector with anti-fingerprint coating.</p>
+            <div class="product-meta">
+              <span>Samsung Galaxy</span>
+              <strong class="product-price">KES 1,950</strong>
+            </div>
+            <button class="btn card-btn" onclick="inquireProduct('Galaxy A54 Protector', 1950)">Add to order</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="laptop">
+          <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=900&q=80" alt="Laptop battery" />
+          <div class="product-body">
+            <span class="product-category">Laptop</span>
+            <h3>Laptop Battery Replacement</h3>
+            <p>Long-life replacement battery for better performance and saving costs.</p>
+            <div class="product-meta">
+              <span>HP / Dell / Lenovo</span>
+              <strong class="product-price">KES 12,900</strong>
+            </div>
+            <button class="btn card-btn" onclick="inquireProduct('Laptop Battery Replacement', 12900)">Add to order</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="repair">
+          <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=900&q=80" alt="USB-C charging port" />
+          <div class="product-body">
+            <span class="product-category">Repair Part</span>
+            <h3>USB-C Charging Port</h3>
+            <p>Reliable charging port replacement for stable long-term use.</p>
+            <div class="product-meta">
+              <span>Phone & Tablet</span>
+              <strong class="product-price">KES 3,499</strong>
+            </div>
+            <button class="btn card-btn" onclick="inquireProduct('USB-C Charging Port', 3499)">Add to order</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="laptop">
+          <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=900&q=80" alt="Keyboard kit" />
+          <div class="product-body">
+            <span class="product-category">Laptop</span>
+            <h3>MacBook Air Keyboard Kit</h3>
+            <p>Replacement keyboard kit, easy to install and built for long use.</p>
+            <div class="product-meta">
+              <span>MacBook Air</span>
+              <strong class="product-price">KES 14,999</strong>
+            </div>
+            <button class="btn card-btn" onclick="inquireProduct('MacBook Air Keyboard Kit', 14999)">Add to order</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="repair">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80" alt="Camera lens" />
+          <div class="product-body">
+            <span class="product-category">Camera</span>
+            <h3>Phone Camera Lens</h3>
+            <p>Clear replacement lens delivering sharper image quality and reliability.</p>
+            <div class="product-meta">
+              <span>Android / iPhone</span>
+              <strong class="product-price">KES 4,500</strong>
+            </div>
+            <button class="btn card-btn" onclick="inquireProduct('Phone Camera Lens', 4500)">Add to order</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <div class="about-text">
+        <span class="badge">Why choose us</span>
+        <h2>Built for long-term reliability and easy upgrades</h2>
+        <p>
+          Our portal helps users source durable replacement parts and trusted repair support for
+          phones, tablets, and laptops. We focus on longevity, modular solutions, and upgrade-friendly components.
+        </p>
+
+        <ul>
+          <li>Premium repair parts and accessories</li>
+          <li>Easy product selection and ordering</li>
+          <li>Repair tracking for customer confidence</li>
+          <li>Upgrade-first design for lasting performance</li>
+        </ul>
+      </div>
+
+      <div class="about-box">
+        <h3>Upgrade-first design</h3>
+        <p>
+          Instead of replacing everything, we help customers choose upgradeable parts that are easier to maintain and last longer.
+        </p>
+      </div>
+    </section>
+
+    <section id="repair-tracker" class="repair-tracker">
+      <div class="section-heading">
+        <p>Repair tracking</p>
+        <h2>Check the status of your device</h2>
+      </div>
+
+      <form onsubmit="submitRepairRequest(event)" class="repair-form">
+        <div class="form-group">
+          <label for="customerName">Full Name</label>
+          <input id="customerName" type="text" placeholder="Enter your name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input id="email" type="email" placeholder="Enter your email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="deviceName">Device Name</label>
+          <input id="deviceName" type="text" placeholder="e.g. iPhone 13" required />
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input id="phone" type="text" placeholder="Enter phone number (e.g. +254712345678)" required />
+        </div>
+
+        <div class="form-group">
+          <label for="serviceType">Service Type</label>
+          <select id="serviceType" required>
+            <option value="">-- Select Service --</option>
+            <option value="screen_repair">Screen Repair</option>
+            <option value="battery_replacement">Battery Replacement</option>
+            <option value="charging_port">Charging Port Repair</option>
+            <option value="keyboard_repair">Keyboard Repair</option>
+            <option value="camera_repair">Camera Repair</option>
+            <option value="other">Other Repairs</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="priority">Priority Level</label>
+          <select id="priority" required>
+            <option value="">-- Select Priority --</option>
+            <option value="standard">Standard (3-5 days)</option>
+            <option value="express">Express (1-2 days)</option>
+            <option value="urgent">Urgent (Same day)</option>
+          </select>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="issue">Issue Summary</label>
+          <textarea id="issue" placeholder="Describe the problem with your device..." required></textarea>
+        </div>
+
+        <div class="full-width">
+          <button type="submit" class="btn primary">Submit Repair Request</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-content">
+      <div>
+        <h4>ElectroFix</h4>
+        <p>Repairing and sourcing dependable electronic parts.</p>
+      </div>
+      <div>
+        <p>© 2026 ElectroFix Portal. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Filter products by category
+    function filterProducts(category) {
+      const cards = document.querySelectorAll('.product-card');
+      const filters = document.querySelectorAll('.filter');
+
+      filters.forEach(f => f.classList.remove('active'));
+      event.target.classList.add('active');
+
+      cards.forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Handle product inquiries
+    function inquireProduct(productName, price) {
+      // Navigate to repair tracker with product info pre-filled
+      document.getElementById('deviceName').value = productName;
+      document.getElementById('issue').value = `I am interested in ordering: ${productName} (KES ${price.toLocaleString()})`;
+      
+      // Scroll to repair tracker
+      document.getElementById('repair-tracker').scrollIntoView({ behavior: 'smooth' });
+      
+      // Focus on the form
+      setTimeout(() => document.getElementById('customerName').focus(), 500);
+    }
+
+    // Submit repair request
+    function submitRepairRequest(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('customerName').value;
+      const email = document.getElementById('email').value;
+      const device = document.getElementById('deviceName').value;
+      const phone = document.getElementById('phone').value;
+      const serviceType = document.getElementById('serviceType').value;
+      const priority = document.getElementById('priority').value;
+      const issue = document.getElementById('issue').value;
+
+      // Create a summary
+      const requestData = {
+        name,
+        email,
+        device,
+        phone,
+        serviceType,
+        priority,
+        issue,
+        timestamp: new Date().toLocaleString()
+      };
+
+      // Store in localStorage for demonstration
+      localStorage.setItem('lastRepairRequest', JSON.stringify(requestData));
+
+      // Remove existing success message
+      const existing = document.querySelector('.success-message');
+      if (existing) existing.remove();
+
+      // Show success message
+      const message = document.createElement('div');
+      message.className = 'success-message';
+      message.innerHTML = `
+        <strong>✓ Success!</strong><br>
+        Thank you ${name}! Your repair request for ${device} has been received.<br>
+        <strong>Reference ID:</strong> #${Date.now()}<br>
+        We will contact you at ${phone} within 2 hours to confirm your repair appointment.<br>
+        <strong>Service:</strong> ${serviceType.replace(/_/g, ' ').toUpperCase()}<br>
+        <strong>Priority:</strong> ${priority.toUpperCase()}
+      `;
+
+      const form = document.querySelector('.repair-form');
+      form.insertAdjacentElement('beforebegin', message);
+
+      // Reset form
+      form.reset();
+
+      // Scroll to success message
+      message.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
