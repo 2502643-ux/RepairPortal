@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | ElectroFix</title>
+  <link rel="stylesheet" href="auth.css" />
+</head>
+<body data-page="dashboard">
+  <header class="header">
+    <div class="container navbar">
+      <div class="brand">
+        <div class="brand-badge">E</div>
+        <span>ElectroFix</span>
+      </div>
+      <nav class="nav-links">
+        <a href="landing.html">Home</a>
+        <a href="profile.html">Profile</a>
+        <button id="logoutBtn" class="btn btn-secondary">Logout</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="dashboard">
+    <div class="dashboard-grid">
+      <section class="card">
+        <h3>Welcome, <span id="userName">Client</span></h3>
+        <p class="small-text" id="userEmail">email@example.com</p>
+        <div class="user-summary">
+          <div class="summary-item">
+            <strong id="totalRepairs">0</strong>
+            <span>Total Repairs</span>
+          </div>
+          <div class="summary-item">
+            <strong id="pendingRepairs">0</strong>
+            <span>Pending</span>
+          </div>
+          <div class="summary-item">
+            <strong id="completedRepairs">0</strong>
+            <span>Completed</span>
+          </div>
+          <div class="summary-item">
+            <strong>24/7</strong>
+            <span>Support</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h3>Quick Actions</h3>
+        <div class="form-grid">
+          <a href="index.html" class="btn btn-primary" style="text-align:center;">Submit a repair</a>
+          <a href="profile.html" class="btn btn-secondary" style="text-align:center;">Edit profile</a>
+        </div>
+      </section>
+    </div>
+
+    <section class="card" style="margin-top:24px;">
+      <h3>Recent Repair Requests</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Device</th>
+              <th>Problem</th>
+              <th>Service</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="repairTable">
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="auth.js"></script>
+</body>
+</html>
